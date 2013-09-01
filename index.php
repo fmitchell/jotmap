@@ -3,14 +3,42 @@
 // Load composer libraries.
 require 'vendor/autoload.php';
 
-// Jotform setup.
+// API Keys.
+$cloudmade_api_key = '41339be4c5064686b781a5a00678de62';
 $jotform_api_key = '6c8a6d9bad5a660e7a76f53de0cbb065';
+
+// Jotform setup.
 $jotformAPI = new JotForm($jotform_api_key);
 $forms = $jotformAPI->getForms();
 
 // Get latest form submissions.
 $form = reset($forms);
 $submissions = $jotformAPI->getFormSubmissions($form['id']);
+
+// Setup geocoder.
+$adapter = new \Geocoder\HttpAdapter\CurlHttpAdapter();
+$geocoder = new \Geocoder\Geocoder();
+$chain = new \Geocoder\Provider\ChainProvider(
+  array(
+    new \Geocoder\Provider\CloudMadeProvider($adapter, $cloudmade_api_key),
+  )
+);
+$geocoder->registerProvider($chain);
+
+// Geocode address.
+$geocodes = array();
+foreach ($submissions as $submission) {
+  $address = implode(', ', $submission['answers'][5]['answer']);
+  try {
+    $geocode = $geocoder->geocode($address);
+    $geocodes[] = array(
+      'long' => $geocode->longitude,
+      'lat' => $geocode->latitude,
+    );
+  } catch (Exception $e) {
+    echo $e->getMessage();
+  }
+}
 
 // Mustache setup.
 $mustache_options = array(
@@ -22,6 +50,7 @@ $m = new Mustache_Engine($mustache_options);
 // Mustache hashes.
 $hash = array(
   'title' => 'Foo Bar',
+  'cloudmade_api_key' => $cloudmade_api_key,
 );
 
 // Mustache template loading.
