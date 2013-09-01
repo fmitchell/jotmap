@@ -1,4 +1,10 @@
 {
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/fmitchell/jotform-api-php"
+    }
+  ],
   "require": {
     "jotform/jotform-api-php": "dev-master",
     "mustache/mustache": "~2.1"
