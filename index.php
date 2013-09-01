@@ -32,8 +32,8 @@ foreach ($submissions as $submission) {
   try {
     $geocode = $geocoder->geocode($address);
     $geocodes[] = array(
-      'long' => $geocode->longitude,
-      'lat' => $geocode->latitude,
+      'long' => $geocode->getLongitude(),
+      'lat' => $geocode->getLatitude(),
     );
   } catch (Exception $e) {
     echo $e->getMessage();
@@ -55,6 +55,7 @@ $hash = array(
 
 // Mustache template loading.
 $map = $m->loadTemplate('map');
+$table = $m->loadTemplate('table');
 
 ?>
 
@@ -82,6 +83,7 @@ $map = $m->loadTemplate('map');
 
         <h1>JotMap on Bootstrap</h1>
         <?php echo $map->render($hash); // Render the map. ?>
+        <?php echo $table->render($hash); // Render the table. ?>
 
       </div>
 
