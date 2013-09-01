@@ -7,6 +7,7 @@
   ],
   "require": {
     "jotform/jotform-api-php": "dev-master",
-    "mustache/mustache": "~2.1"
+    "mustache/mustache": "~2.1",
+    "willdurand/geocoder": "*"
   }
 }
