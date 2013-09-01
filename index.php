@@ -29,15 +29,20 @@ $geocoder->registerProvider($chain);
 $geocodes = array();
 foreach ($submissions as $submission) {
   $address = implode(', ', $submission['answers'][5]['answer']);
-  try {
-    $geocode = $geocoder->geocode($address);
-    $geocodes[] = array(
-      'long' => $geocode->getLongitude(),
-      'lat' => $geocode->getLatitude(),
-    );
-  } catch (Exception $e) {
-    echo $e->getMessage();
-  }
+  $name = implode(' ', $submission['answers'][4]['answer']);
+  $geocodes[] = array(
+    'address' => $address,
+    'name' => $name,
+  );
+//  try {
+//    $geocode = $geocoder->geocode($address);
+//    $geocodes[] = array(
+//      'long' => $geocode->getLongitude(),
+//      'lat' => $geocode->getLatitude(),
+//    );
+//  } catch (Exception $e) {
+//    echo $e->getMessage();
+//  }
 }
 
 // Mustache setup.
@@ -51,6 +56,7 @@ $m = new Mustache_Engine($mustache_options);
 $hash = array(
   'title' => 'Foo Bar',
   'cloudmade_api_key' => $cloudmade_api_key,
+  'data' => $geocodes,
 );
 
 // Mustache template loading.
@@ -81,7 +87,7 @@ $table = $m->loadTemplate('table');
 
       <div class="row">
 
-        <h1>JotMap on Bootstrap</h1>
+        <div class="col-lg-12"><h1>JotMap on Bootstrap</h1></div>
         <?php echo $map->render($hash); // Render the map. ?>
         <?php echo $table->render($hash); // Render the table. ?>
 
