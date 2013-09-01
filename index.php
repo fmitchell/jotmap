@@ -1,11 +1,20 @@
 <?php
 
+/**
+ * Main code for Jotmap, including PHP and HTML
+ *
+ * @author Fredric Mitchell
+ */
+
 // Load composer libraries.
 require 'vendor/autoload.php';
 
 // API Keys.
 $cloudmade_api_key = '41339be4c5064686b781a5a00678de62';
 $jotform_api_key = '6c8a6d9bad5a660e7a76f53de0cbb065';
+
+// Mongo URI.
+$mongo_uri = "mongodb://jotmap:_j0tm4p_@ds043338.mongolab.com:43338/jotmap";
 
 // Jotform setup.
 $jotformAPI = new JotForm($jotform_api_key);
@@ -15,34 +24,70 @@ $forms = $jotformAPI->getForms();
 $form = reset($forms);
 $submissions = $jotformAPI->getFormSubmissions($form['id']);
 
-// Setup geocoder.
-$adapter = new \Geocoder\HttpAdapter\CurlHttpAdapter();
-$geocoder = new \Geocoder\Geocoder();
-$chain = new \Geocoder\Provider\ChainProvider(
-  array(
-    new \Geocoder\Provider\CloudMadeProvider($adapter, $cloudmade_api_key),
-  )
-);
-$geocoder->registerProvider($chain);
+// Setup Mongo for storing already geocoded submissions.
+$uriParts = explode("/", $mongo_uri);
+$dbName = $uriParts[3];
+$client = new MongoClient($mongo_uri);
+$db = $client->$dbName;
+$mongo_submissions = $db->submissions;
 
-// Geocode address.
-$geocodes = array();
+$submission_geocodes = array();
+
+// Go through each submission to geocode.
 foreach ($submissions as $submission) {
+
+  // Setup variables.
+  $id = $submission['id'];
+  $form_id = $submission['form_id'];
   $address = implode(', ', $submission['answers'][5]['answer']);
   $name = implode(' ', $submission['answers'][4]['answer']);
-  $geocodes[] = array(
-    'address' => $address,
-    'name' => $name,
+
+  // Build Mongo query parameters.
+  $query = array(
+    'id' => $submission['id'],
+    'form_id' => $submission['form_id']
   );
-//  try {
-//    $geocode = $geocoder->geocode($address);
-//    $geocodes[] = array(
-//      'long' => $geocode->getLongitude(),
-//      'lat' => $geocode->getLatitude(),
-//    );
-//  } catch (Exception $e) {
-//    echo $e->getMessage();
-//  }
+
+  // See if record is already in db.
+  $existing = $mongo_submissions->findOne($query);
+
+  // If already in Mongo, no need to geocode
+  if (!isset($existing)) {
+    // Setup geocoder.
+    $adapter = new \Geocoder\HttpAdapter\CurlHttpAdapter();
+    $geocoder = new \Geocoder\Geocoder();
+    $chain = new \Geocoder\Provider\ChainProvider(
+      array(
+        new \Geocoder\Provider\CloudMadeProvider($adapter, $cloudmade_api_key),
+      )
+    );
+    $geocoder->registerProvider($chain);
+
+    // Try to geocode.
+    try {
+      $geocode = $geocoder->geocode($address);
+      $longitude = $geocode->getLongitude();
+      $latitude = $geocode->getLatitude();
+
+      // Save longitude, latitude, submission id, and form id.
+      $submission_geocodes[] = array(
+        'long' => $longitude,
+        'lat' => $latitude,
+        'id' => $id,
+        'form_id' => $form_id,
+      );
+    } catch (Exception $e) {
+      echo $e->getMessage();
+    }
+
+    // Unset variables to reduce chance of duplicates.
+    unset($address, $name, $longitude, $latitude);
+  }
+}
+
+// If no new geocodes, no need to insert into Mongo.
+if (!empty($submission_geocodes)) {
+  $mongo_submissions->batchInsert($submission_geocodes);
 }
 
 // Mustache setup.
@@ -56,7 +101,12 @@ $m = new Mustache_Engine($mustache_options);
 $hash = array(
   'title' => 'Foo Bar',
   'cloudmade_api_key' => $cloudmade_api_key,
-  'data' => $geocodes,
+  'data' => array(
+    array(
+      'name' => 'foo',
+      'address' => 'bar',
+    ),
+  ),
 );
 
 // Mustache template loading.
@@ -74,9 +124,6 @@ $table = $m->loadTemplate('table');
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
-    <!--[if lte IE 8]>
-        <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.ie.css" />
-    <![endif]-->
     <link rel="stylesheet" href="css/jotmap.css">
     <script src="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
   </head>
@@ -88,6 +135,7 @@ $table = $m->loadTemplate('table');
       <div class="row">
 
         <div class="col-lg-12"><h1>JotMap on Bootstrap</h1></div>
+
         <?php echo $map->render($hash); // Render the map. ?>
         <?php echo $table->render($hash); // Render the table. ?>
 
