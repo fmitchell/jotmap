@@ -31,7 +31,7 @@ $client = new MongoClient($mongo_uri);
 $db = $client->$dbName;
 $mongo_submissions = $db->submissions;
 
-$submission_geocodes = array();
+$submission_geocodes = $display_markers = $marker_ids = array();
 
 // Go through each submission to geocode.
 foreach ($submissions as $submission) {
@@ -83,6 +83,13 @@ foreach ($submissions as $submission) {
     // Unset variables to reduce chance of duplicates.
     unset($address, $name, $longitude, $latitude);
   }
+  $display_markers[] = array(
+    'marker_id' => 'marker' . $id,
+    'lat' => $existing['lat'],
+    'long' => $existing['long'],
+  );
+
+  $marker_ids[] = 'marker' . $id;
 }
 
 // If no new geocodes, no need to insert into Mongo.
@@ -100,18 +107,28 @@ $m = new Mustache_Engine($mustache_options);
 // Mustache hashes.
 $hash = array(
   'title' => 'Foo Bar',
-  'cloudmade_api_key' => $cloudmade_api_key,
-  'data' => array(
+  'tabledata' => array(
     array(
       'name' => 'foo',
       'address' => 'bar',
     ),
+    array(
+      'name' => 'bat',
+      'address' => 'baz',
+    ),
   ),
+);
+
+$mapdata_hash = array(
+  'cloudmade_api_key' => $cloudmade_api_key,
+  'markerdata' => $display_markers,
+  'marker_ids' => implode(', ', $marker_ids),
 );
 
 // Mustache template loading.
 $map = $m->loadTemplate('map');
 $table = $m->loadTemplate('table');
+$mapdata = $m->loadTemplate('mapdata');
 
 ?>
 
@@ -145,6 +162,9 @@ $table = $m->loadTemplate('table');
 
     <script src="//code.jquery.com/jquery.js"></script>
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <script>
+      <?php echo $mapdata->render($mapdata_hash); // Render mapdata. ?>
+    </script>
   </body>
 
 </html>
