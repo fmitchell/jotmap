@@ -85,6 +85,7 @@ foreach ($submissions as $submission) {
     $longitude = $existing['long'];
   }
 
+  // Check to see if geocode is 'center of world', i.e. could not find.
   if (($latitude != '-3.37232') && ($longitude != '36.85787')) {
     $display_markers[] = array(
       'marker_id' => 'marker' . $id,
@@ -95,13 +96,16 @@ foreach ($submissions as $submission) {
     $address_display = " ($latitude, $longitude)";
 
     $marker_ids[] = 'marker' . $id;
+    $label = 'success';
   } else {
     $address_display = " (Could not find location)";
+    $label = 'warning';
   }
 
   $addresses[] = array(
     'name' => $name,
     'address' => $address . $address_display,
+    'label' => $label,
   );
 
   // Unset variables to reduce chance of duplicates.
@@ -145,7 +149,6 @@ $mapdata = $m->loadTemplate('mapdata');
   <head>
     <title>Jotmap on Bootstrap</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
     <link rel="stylesheet" href="css/jotmap.css">
