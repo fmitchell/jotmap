@@ -31,7 +31,7 @@ $client = new MongoClient($mongo_uri);
 $db = $client->$dbName;
 $mongo_submissions = $db->submissions;
 
-$submission_geocodes = $display_markers = $marker_ids = array();
+$submission_geocodes = $display_markers = $marker_ids = $addresses = array();
 
 // Go through each submission to geocode.
 foreach ($submissions as $submission) {
@@ -80,16 +80,32 @@ foreach ($submissions as $submission) {
       echo $e->getMessage();
     }
 
-    // Unset variables to reduce chance of duplicates.
-    unset($address, $name, $longitude, $latitude);
+  } else {
+    $latitude = $existing['lat'];
+    $longitude = $existing['long'];
   }
-  $display_markers[] = array(
-    'marker_id' => 'marker' . $id,
-    'lat' => $existing['lat'],
-    'long' => $existing['long'],
+
+  if (($latitude != '-3.37232') && ($longitude != '36.85787')) {
+    $display_markers[] = array(
+      'marker_id' => 'marker' . $id,
+      'lat' => $latitude,
+      'long' => $longitude,
+    );
+
+    $address_display = " ($latitude, $longitude)";
+
+    $marker_ids[] = 'marker' . $id;
+  } else {
+    $address_display = " (Could not find location)";
+  }
+
+  $addresses[] = array(
+    'name' => $name,
+    'address' => $address . $address_display,
   );
 
-  $marker_ids[] = 'marker' . $id;
+  // Unset variables to reduce chance of duplicates.
+  unset($address, $name, $longitude, $latitude);
 }
 
 // If no new geocodes, no need to insert into Mongo.
@@ -107,16 +123,7 @@ $m = new Mustache_Engine($mustache_options);
 // Mustache hashes.
 $hash = array(
   'title' => 'Foo Bar',
-  'tabledata' => array(
-    array(
-      'name' => 'foo',
-      'address' => 'bar',
-    ),
-    array(
-      'name' => 'bat',
-      'address' => 'baz',
-    ),
-  ),
+  'tabledata' => $addresses,
 );
 
 $mapdata_hash = array(
