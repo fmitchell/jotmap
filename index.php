@@ -23,7 +23,7 @@ $app->get('/map', function() use ($app) {
   $app->render('map.php');
 });
 
-$app->get('/form', function() use ($app) {
+$app->get('/step2', function() use ($app) {
   $app->render('step2.php');
 });
 

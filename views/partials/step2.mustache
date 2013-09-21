@@ -1,6 +1,6 @@
 <h3>Step 2 of 3: Pick the Form</h3>
 
-<form role="form" action="/form" method="get" class="form-horizontal">
+<form role="form" action="/step3" method="get" class="form-horizontal">
     <div class="form-group">
         <label class="col-lg-2 control-label">User</label>
         <div class="col-lg-6">
@@ -11,6 +11,7 @@
         <label class="col-lg-2 control-label">API Key</label>
         <div class="col-lg-6">
             <p class="form-control-static">{{key}}</p>
+            <input type="hidden" name="jotformapi" value="{{key}}" />
         </div>
     </div>
     {{# list }}
@@ -20,7 +21,7 @@
     {{/ list }}
     <div class="form-group">
         <div class="col-lg-offset-2 col-lg-6">
-            <button type="submit" class="btn btn-success btn-lg">Step 2</button>
+            <button type="submit" class="btn btn-success btn-lg">Step 3</button>
         </div>
     </div>
 </form>
