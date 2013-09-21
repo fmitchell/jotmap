@@ -106,8 +106,9 @@ foreach ($submissions as $submission) {
 
   $addresses[] = array(
     'name' => $name,
-    'address' => $address . $address_display,
+    'address' => $address,
     'label' => $label,
+    'coordinates' => $address_display,
   );
 
   // Unset variables to reduce chance of duplicates.
