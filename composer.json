@@ -5,5 +5,8 @@
     "willdurand/geocoder": "*",
     "ext-mongo": "*",
     "slim/slim": "2.*"
+  },
+  "autoload": {
+    "classmap": ["src/"]
   }
 }

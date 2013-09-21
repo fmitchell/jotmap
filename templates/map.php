@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * JotMap
+ *
+ * @author Fredric Mitchell
+ * @link http://jotmap.jotform.io
+ * @copyright 2013 Fredric Mitchell
+ */
+
 // API Keys.
 $cloudmade_api_key = '41339be4c5064686b781a5a00678de62';
 $jotform_api_key = '6c8a6d9bad5a660e7a76f53de0cbb065';
@@ -109,11 +117,7 @@ if (!empty($submission_geocodes)) {
 }
 
 // Mustache setup.
-$mustache_options = array(
-  'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/views'),
-  'partials_loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/views/partials'),
-);
-$m = new Mustache_Engine($mustache_options);
+$m = new JotMapMustache;
 
 // Mustache hashes.
 $hash = array(
