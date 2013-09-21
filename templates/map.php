@@ -116,9 +116,6 @@ if (!empty($submission_geocodes)) {
   $mongo_submissions->batchInsert($submission_geocodes);
 }
 
-// Mustache setup.
-$m = new JotMapMustache;
-
 // Mustache hashes.
 $hash = array(
   'title' => 'Foo Bar',
@@ -129,5 +126,6 @@ $hash = array(
 );
 
 // Mustache template loading.
+$m = new JotMapMustache;
 $page = $m->loadTemplate('page');
 echo $page->render($hash);

@@ -19,5 +19,13 @@ $app->get('/', function() use ($app) {
   $app->render('map.php');
 });
 
+$app->get('/map', function() use ($app) {
+  $app->render('map.php');
+});
+
+$app->get('/form', function() use ($app) {
+  $app->render('form.php');
+});
+
 $app->run();
 
