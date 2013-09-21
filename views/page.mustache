@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title>Jotmap on Bootstrap</title>
+    <title>Jotmap</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
@@ -16,16 +16,25 @@
 
     <div class="row">
 
-        <div class="col-lg-12"><h1>JotMap on Bootstrap</h1></div>
+        <div class="col-lg-12"><h1>JotMap</h1></div>
+        <div class="row-fluid">
+            <div class="col-lg-8">
 
-        {{^ tabledata }}
-        {{> form }}
-        {{/ tabledata }}
+                <p class="lead">
+                    Build a map of your JotForm submissions!
+                </p>
 
-        {{# tabledata }}
-        {{> map }}
-        {{> table }}
-        {{/ tabledata }}
+                {{^ tabledata }}
+                {{> form }}
+                {{/ tabledata }}
+
+                {{# tabledata }}
+                {{> map }}
+                {{> table }}
+                {{/ tabledata }}
+                
+            </div>
+        </div>
 
     </div>
 
