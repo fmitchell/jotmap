@@ -16,7 +16,7 @@ $app = new \Slim\Slim(array(
 ));
 
 $app->get('/', function() use ($app) {
-  $app->render('form.php');
+  $app->render('start.php');
 });
 
 $app->get('/map', function() use ($app) {
