@@ -10,18 +10,14 @@
 
 // API Keys.
 $cloudmade_api_key = '41339be4c5064686b781a5a00678de62';
-$jotform_api_key = '6c8a6d9bad5a660e7a76f53de0cbb065';
+
+$field = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET['jotfieldchoice']);
+$key = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET['jotformapi']);
+$choice = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET['jotformchoice']);
+$user = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET['user']);
 
 // Mongo URI.
 $mongo_uri = "mongodb://jotmap:_j0tm4p_@ds043338.mongolab.com:43338/jotmap";
-
-// Jotform setup.
-$jotformAPI = new JotForm($jotform_api_key);
-$forms = $jotformAPI->getForms();
-
-// Get latest form submissions.
-$form = reset($forms);
-$submissions = $jotformAPI->getFormSubmissions($form['id']);
 
 // Setup Mongo for storing already geocoded submissions.
 $uriParts = explode("/", $mongo_uri);
@@ -29,6 +25,12 @@ $dbName = $uriParts[3];
 $client = new MongoClient($mongo_uri);
 $db = $client->$dbName;
 $mongo_submissions = $db->submissions;
+
+// Jotform setup.
+$jotformAPI = new JotForm($key);
+
+// Get latest form submissions.
+$submissions = $jotformAPI->getFormSubmissions($choice);
 
 $submission_geocodes = $display_markers = $marker_ids = $addresses = array();
 
@@ -38,8 +40,8 @@ foreach ($submissions as $submission) {
   // Setup variables.
   $id = $submission['id'];
   $form_id = $submission['form_id'];
-  $address = implode(', ', $submission['answers'][5]['answer']);
-  $name = implode(' ', $submission['answers'][4]['answer']);
+  $address = implode(', ', $submission['answers'][$field]['answer']);
+  //$name = implode(' ', $submission['answers'][4]['answer']);
 
   // Build Mongo query parameters.
   $query = array(
@@ -102,7 +104,7 @@ foreach ($submissions as $submission) {
   }
 
   $addresses[] = array(
-    'name' => $name,
+    'name' => 'foo',
     'address' => $address . $address_display,
     'label' => $label,
   );
@@ -123,6 +125,7 @@ $hash = array(
   'cloudmade_api_key' => $cloudmade_api_key,
   'markerdata' => $display_markers,
   'marker_ids' => implode(', ', $marker_ids),
+  'mapview' => true,
 );
 
 // Mustache template loading.

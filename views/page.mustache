@@ -24,9 +24,11 @@
                     Build a map of your JotForm submissions!
                 </p>
 
+                {{^ mapview }}
                 {{^ key }}
                 {{> step1 }}
                 {{/ key }}
+                {{/ mapview }}
 
                 {{# key }}
                 {{^ choice }}
@@ -38,10 +40,10 @@
                 {{> step3 }}
                 {{/ choice }}
 
-                {{# tabledata }}
+                {{# cloudmade_api_key }}
                 {{> map }}
                 {{> table }}
-                {{/ tabledata }}
+                {{/ cloudmade_api_key }}
 
             </div>
         </div>
