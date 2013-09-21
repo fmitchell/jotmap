@@ -27,5 +27,9 @@ $app->get('/step2', function() use ($app) {
   $app->render('step2.php');
 });
 
+$app->get('/step3', function() use ($app) {
+  $app->render('step3.php');
+});
+
 $app->run();
 
