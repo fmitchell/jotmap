@@ -1,11 +1,17 @@
-<h3>Step 3 of 3: Pick the address field</h3>
+<h3>Step 3 of 3: Pick fields</h3>
 
 <form role="form" action="/map" method="get" class="form-horizontal">
+    <hr />
+    <h4>1. Which will be the pin's address?</h4>
     {{# list }}
-    <div class="form-group">
         {{> list-data}}
-    </div>
     {{/ list }}
+    <hr />
+    <h4>2. Which will be the pin's label?</h4>
+    {{# list }}
+        {{> list-data-label}}
+    {{/ list }}
+    <hr />
     <div class="form-group">
         <label class="col-lg-2 control-label">User</label>
         <div class="col-lg-6">

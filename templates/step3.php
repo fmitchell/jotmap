@@ -30,11 +30,6 @@ foreach ($questions as $question) {
       'qid' => $question['qid'],
       'title' => $question['text']
     );
-
-    // Guess address field.
-    if ($question['type'] == 'control_address') {
-      $data['checked'] = TRUE;
-    }
     $list[] = $data;
   }
 }

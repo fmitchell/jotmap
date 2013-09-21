@@ -11,7 +11,8 @@
 // API Keys.
 $cloudmade_api_key = '41339be4c5064686b781a5a00678de62';
 
-$field = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET['jotfieldchoice']);
+$jotaddress = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET['jotaddresschoice']);
+$jotlabel = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET['jotlabelchoice']);
 $key = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET['jotformapi']);
 $choice = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET['jotformchoice']);
 $user = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET['user']);
@@ -40,8 +41,8 @@ foreach ($submissions as $submission) {
   // Setup variables.
   $id = $submission['id'];
   $form_id = $submission['form_id'];
-  $address = implode(', ', $submission['answers'][$field]['answer']);
-  //$name = implode(' ', $submission['answers'][4]['answer']);
+  $address = implode(', ', $submission['answers'][$jotaddress]['answer']);
+  $name = implode(' ', $submission['answers'][$jotlabel]['answer']);
 
   // Build Mongo query parameters.
   $query = array(
@@ -104,7 +105,7 @@ foreach ($submissions as $submission) {
   }
 
   $addresses[] = array(
-    'name' => 'foo',
+    'name' => $name,
     'address' => $address . $address_display,
     'label' => $label,
   );

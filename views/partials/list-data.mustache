@@ -1,12 +1,8 @@
-<div class="col-lg-offset-2 col-lg-6">
-    <div class="radio">
-        <label>
-            {{^ qid }}
-            <input type="radio" name="jotformchoice" value="{{id}}" />{{title}}
-            {{/ qid }}
-            {{# qid }}
-            <input type="radio" name="jotfieldchoice" value="{{qid}}" {{# checked }}checked="checked"{{/ checked }} />{{title}}
-            {{/ qid }}
-        </label>
-    </div>
-</div>
+<label class="radio-inline">
+    {{^ qid }}
+    <input type="radio" name="jotformchoice" value="{{id}}" />{{title}}
+    {{/ qid }}
+    {{# qid }}
+    <input type="radio" name="jotaddresschoice" value="{{qid}}" />{{title}}
+    {{/ qid }}
+</label>
