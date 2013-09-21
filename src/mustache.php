@@ -20,8 +20,8 @@ class JotMapMustache extends Mustache_Engine {
   public function __construct() {
     // Mustache setup.
     $mustache_options = array(
-      'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/views'),
-      'partials_loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__).'/views/partials'),
+      'loader' => new Mustache_Loader_FilesystemLoader(dirname(dirname(__FILE__)).'/views'),
+      'partials_loader' => new Mustache_Loader_FilesystemLoader(dirname(dirname(__FILE__)).'/views/partials'),
     );
 
     parent::__construct($mustache_options);

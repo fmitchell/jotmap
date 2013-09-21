@@ -1,6 +1,8 @@
+<script>
 {{> mapjs }}
 {{# markerdata }}
 {{> markerjs }}
 {{/ markerdata }}
 var group = new L.featureGroup([{{marker_ids}}]);
 map.fitBounds(group.getBounds());
+</script>

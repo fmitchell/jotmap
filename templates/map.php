@@ -123,53 +123,11 @@ $m = new JotMapMustache;
 $hash = array(
   'title' => 'Foo Bar',
   'tabledata' => $addresses,
-);
-
-$mapdata_hash = array(
   'cloudmade_api_key' => $cloudmade_api_key,
   'markerdata' => $display_markers,
   'marker_ids' => implode(', ', $marker_ids),
 );
 
 // Mustache template loading.
-$map = $m->loadTemplate('map');
-$table = $m->loadTemplate('table');
-$mapdata = $m->loadTemplate('mapdata');
-
-?>
-
-<!DOCTYPE html>
-<html>
-
-<head>
-  <title>Jotmap on Bootstrap</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
-  <link rel="stylesheet" href="../css/jotmap.css">
-  <script src="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
-</head>
-
-<body>
-
-<div class="container">
-
-  <div class="row">
-
-    <div class="col-lg-12"><h1>JotMap on Bootstrap</h1></div>
-
-    <?php echo $map->render($hash); // Render the map. ?>
-    <?php echo $table->render($hash); // Render the table. ?>
-
-  </div>
-
-</div>
-
-<script src="//code.jquery.com/jquery.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<script>
-  <?php echo $mapdata->render($mapdata_hash); // Render mapdata. ?>
-</script>
-</body>
-
-</html>
+$page = $m->loadTemplate('page');
+echo $page->render($hash);
