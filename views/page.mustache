@@ -24,9 +24,13 @@
                     Build a map of your JotForm submissions!
                 </p>
 
-                {{^ tabledata }}
-                {{> start }}
-                {{/ tabledata }}
+                {{^ key }}
+                {{> step1 }}
+                {{/ key }}
+
+                {{# key }}
+                {{> step2 }}
+                {{/ key }}
 
                 {{# tabledata }}
                 {{> map }}
