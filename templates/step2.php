@@ -39,5 +39,7 @@ $hash = array(
   'key' => $key,
   'user' => $user,
   'list' => $list,
+  'pagetitle' => 'Pick the Form',
+  'step' => 2,
 );
 echo $page->render($hash);

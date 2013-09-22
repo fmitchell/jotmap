@@ -11,4 +11,9 @@
 // Mustache template loading.
 $m = new JotMapMustache;
 $page = $m->loadTemplate('page');
-echo $page->render();
+// Hash
+$hash = array(
+  'pagetitle' => 'Enter JotForm API Key',
+  'step' => 1,
+);
+echo $page->render($hash);

@@ -1,10 +1,8 @@
-<h3>Step 2 of 3: Pick the Form</h3>
+{{> pagetitle }}
 
 <form role="form" action="/step3" method="get" class="form-horizontal">
     {{# list }}
-    <div class="form-group">
         {{> list-data}}
-    </div>
     {{/ list }}
     <div class="form-group">
         <label class="col-lg-2 control-label">User</label>
