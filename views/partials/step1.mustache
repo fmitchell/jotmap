@@ -1,7 +1,14 @@
 {{> pagetitle }}
+<div id="loginresults"></div>
+<button id="jotformlogin" class="btn btn-success btn-lg">Authorize Jotmap</button>
+
+<h3>OR</h3>
+
 <form role="form" action="/step2" method="get">
-    <div class="form-group">
+    <div class="input-group">
         <input type="text" class="form-control input-lg" id="jotformAPIKey" placeholder="Enter API Key" name="jotformapi">
+        <span class="input-group-btn">
+            <button type="submit" class="btn btn-success btn-lg">Next&nbsp;&rsaquo;&rsaquo;</button>
+        </span>
     </div>
-    <button type="submit" class="btn btn-success btn-lg">Next&nbsp;&rsaquo;&rsaquo;</button>
 </form>

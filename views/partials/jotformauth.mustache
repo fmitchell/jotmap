@@ -1,0 +1,19 @@
+<script src='//js.jotform.com/JotForm.min.js'></script>
+<script>
+    $("#jotformlogin").click(function(e) {
+        JF.init({
+            appName: "Jotmap",
+            accessType: 'readOnly'
+        });
+        JF.login(
+                function success() {
+                    $("#loginresults").html("<div class=\"alert alert-success\">Jotmap authorized successfully</div>");
+                    var apiKey = JF.getAPIKey();
+                    window.location = "/step2?jotformapi=" + apiKey;
+                },
+                function error() {
+                    $("#loginresults").html("<div class=\"alert alert-danger\">error during authorization</div>");
+                }
+        );
+    });
+</script>
