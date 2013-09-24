@@ -41,7 +41,9 @@
                 {{/ key }}
 
                 {{# choice }}
+                {{^ cloudmade_api_key }}
                 {{> step3 }}
+                {{/ cloudmade_api_key }}
                 {{/ choice }}
 
                 {{# cloudmade_api_key }}
