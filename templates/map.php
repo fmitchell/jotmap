@@ -23,9 +23,15 @@ $mongo_uri = "mongodb://jotmap:_j0tm4p_@ds043338.mongolab.com:43338/jotmap";
 // Setup Mongo for storing already geocoded submissions.
 $uriParts = explode("/", $mongo_uri);
 $dbName = $uriParts[3];
-$client = new MongoClient($mongo_uri);
-$db = $client->$dbName;
-$mongo_submissions = $db->submissions;
+
+// Attempt to connect to mongo database.
+try {
+  $client = new MongoClient($mongo_uri);
+  $db = $client->$dbName;
+  $mongo_submissions = $db->submissions;
+} catch (Exception $e) {
+
+}
 
 // Jotform setup.
 $jotformAPI = new JotForm($key);
@@ -51,7 +57,9 @@ foreach ($submissions as $submission) {
   );
 
   // See if record is already in db.
-  $existing = $mongo_submissions->findOne($query);
+  $existing = (isset($mongo_submissions) && is_object($mongo_submissions))
+    ? $mongo_submissions->findOne($query)
+    : NULL;
 
   // If already in Mongo, no need to geocode
   if (!isset($existing)) {
@@ -127,7 +135,7 @@ $hash = array(
   'cloudmade_api_key' => $cloudmade_api_key,
   'markerdata' => $display_markers,
   'marker_ids' => implode(', ', $marker_ids),
-  'mapview' => true,
+  'mapview' => TRUE,
 );
 
 // Mustache template loading.
