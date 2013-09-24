@@ -2,6 +2,10 @@
   height: 29.167em;
 }
 
+#jotmap-data-table {
+  margin-bottom: 75px;
+}
+
 #header {
   background: transparent url(../img/logo.png) no-repeat 0 .05em;
   padding-left: 1.3em;

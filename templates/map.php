@@ -37,7 +37,8 @@ try {
 $jotformAPI = new JotForm($key);
 
 // Get latest form submissions.
-$submissions = $jotformAPI->getFormSubmissions($choice);
+// Limit to 20.
+$submissions = $jotformAPI->getFormSubmissions($choice, 0, 20);
 
 $submission_geocodes = $display_markers = $marker_ids = $addresses = array();
 
