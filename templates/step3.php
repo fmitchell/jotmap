@@ -46,5 +46,6 @@ $hash = array(
   'list' => $list,
   'pagetitle' => 'Pick the Fields',
   'step' => 3,
+  'button' => 'Build Map',
 );
 echo $page->render($hash);

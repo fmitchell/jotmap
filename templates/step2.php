@@ -41,5 +41,6 @@ $hash = array(
   'list' => $list,
   'pagetitle' => 'Pick the Form',
   'step' => 2,
+  'button' => 'Next',
 );
 echo $page->render($hash);

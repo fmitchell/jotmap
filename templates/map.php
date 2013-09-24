@@ -138,6 +138,9 @@ $hash = array(
   'markerdata' => $display_markers,
   'marker_ids' => implode(', ', $marker_ids),
   'mapview' => TRUE,
+  'key' => $key,
+  'user' => $user,
+  'choice' => $choice,
 );
 
 // Mustache template loading.

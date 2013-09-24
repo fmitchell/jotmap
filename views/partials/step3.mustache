@@ -5,36 +5,15 @@
     {{# list }}
         {{> list-data}}
     {{/ list }}
-    <hr />
+
     <h4>2. Which will be the pin's label?</h4>
     {{# list }}
         {{> list-data-label}}
     {{/ list }}
-    <hr />
+
+    {{> hidden }}
+
     <div class="form-group">
-        <label class="col-lg-2 control-label">User</label>
-        <div class="col-lg-6">
-            <p class="form-control-static">{{user}}</p>
-            <input type="hidden" name="user" value="{{user}}" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-lg-2 control-label">API Key</label>
-        <div class="col-lg-6">
-            <p class="form-control-static">{{key}}</p>
-            <input type="hidden" name="jotformapi" value="{{key}}" />
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="col-lg-2 control-label">Form Choice</label>
-        <div class="col-lg-6">
-            <p class="form-control-static">{{choice}}</p>
-            <input type="hidden" name="jotformchoice" value="{{choice}}" />
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-lg-offset-2 col-lg-6">
-            <button type="submit" class="btn btn-success btn-lg">Build Map!</button>
-        </div>
+        {{> button }}
     </div>
 </form>

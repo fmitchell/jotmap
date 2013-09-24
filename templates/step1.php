@@ -17,5 +17,6 @@ $hash = array(
   'pagetitle' => 'Enter JotForm API Key',
   'step' => 1,
   'jotformauth' => TRUE,
+  'sidebar-hidden' => TRUE,
 );
 echo $page->render($hash);

@@ -9,6 +9,7 @@
                 function success() {
                     $("#loginresults").html("<div class=\"alert alert-success\">Jotmap authorized successfully</div>");
                     var apiKey = JF.getAPIKey();
+                    $("#jotformAPIKey").val(apiKey);
                     window.location = "/step2?jotformapi=" + apiKey;
                 },
                 function error() {

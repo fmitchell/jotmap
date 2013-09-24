@@ -10,3 +10,15 @@
   background: transparent url(../img/logo.png) no-repeat 0 .05em;
   padding-left: 1.3em;
 }
+
+#sidebar dt {
+  width: 65px;
+}
+
+#sidebar dd {
+  margin-left: 75px;
+}
+
+#stepbutton {
+  margin: 15px 0px 0px 15px;
+}
