@@ -124,7 +124,7 @@ foreach ($submissions as $submission) {
 }
 
 // If no new geocodes, no need to insert into Mongo.
-if (!empty($submission_geocodes)) {
+if (!empty($submission_geocodes) && isset($mongo_submissions)) {
   $mongo_submissions->batchInsert($submission_geocodes);
 }
 
@@ -140,5 +140,13 @@ $hash = array(
 
 // Mustache template loading.
 $m = new JotMapMustache;
-$page = $m->loadTemplate('page');
+
+// If embedding the map, use the embed template.
+// Otherwise use regular page template.
+if (isset($_GET['embed']) && $_GET['embed'] == 'iframe') {
+  $page = $m->loadTemplate('iframe');
+} else {
+  $page = $m->loadTemplate('page');
+}
+
 echo $page->render($hash);

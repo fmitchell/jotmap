@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Jotmap | A simple map for Jotform</title>
+    <link rel="icon" type="image/png" href="../img/favicon.png">
+    <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
+    <link rel="stylesheet" href="../css/jotmap.css">
+    <script src="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+</head>
+
+<body>
+
+{{# cloudmade_api_key }}
+{{> map }}
+{{/ cloudmade_api_key }}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+{{> mapdata }}
+</body>
+
+</html>
