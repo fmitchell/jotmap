@@ -44,5 +44,7 @@ $hash = array(
   'user' => $user,
   'choice' => $choice,
   'list' => $list,
+  'pagetitle' => 'Pick the Fields',
+  'step' => 3,
 );
 echo $page->render($hash);

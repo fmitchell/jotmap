@@ -101,6 +101,7 @@ foreach ($submissions as $submission) {
       'marker_id' => 'marker' . $id,
       'lat' => $latitude,
       'long' => $longitude,
+      'label' => $name,
     );
 
     $address_display = " ($latitude, $longitude)";
