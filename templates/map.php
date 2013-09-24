@@ -25,13 +25,13 @@ $uriParts = explode("/", $mongo_uri);
 $dbName = $uriParts[3];
 
 // Attempt to connect to mongo database.
-//try {
-//  $client = new MongoClient($mongo_uri);
-//  $db = $client->$dbName;
-//  $mongo_submissions = $db->submissions;
-//} catch (Exception $e) {
-//
-//}
+try {
+  $client = new MongoClient($mongo_uri);
+  $db = $client->$dbName;
+  $mongo_submissions = $db->submissions;
+} catch (Exception $e) {
+
+}
 
 // Jotform setup.
 $jotformAPI = new JotForm($key);
