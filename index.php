@@ -12,8 +12,12 @@
 require 'vendor/autoload.php';
 
 $app = new \Slim\Slim(array(
-  'debug' => true
+  'debug' => FALSE
 ));
+
+$app->error(function (\Exception $e) use ($app) {
+    $app->render('error.php');
+});
 
 $app->get('/', function() use ($app) {
   $app->render('step1.php');

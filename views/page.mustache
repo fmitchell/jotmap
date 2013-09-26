@@ -6,9 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../img/favicon.png">
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    {{# leaflet }}
     <link rel="stylesheet" href="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
-    <link rel="stylesheet" href="../css/jotmap.css">
     <script src="//cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
+    {{/ leaflet }}
+    <link rel="stylesheet" href="../css/jotmap.css">
 </head>
 
 <body>
@@ -28,6 +30,11 @@
             </div>
             <div class="col-lg-8 col-lg-offset-1">
 
+                {{# error }}
+                {{> error }}
+                {{/ error }}
+
+                {{^ error }}
                 {{^ mapview }}
                 {{^ key }}
                 {{> step1 }}
@@ -50,6 +57,7 @@
                 {{> map }}
                 {{> table }}
                 {{/ cloudmade_api_key }}
+                {{/ error }}
 
             </div>
         </div>

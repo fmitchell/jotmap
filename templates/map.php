@@ -142,6 +142,7 @@ $hash = array(
   'user' => $user,
   'choice' => $choice,
   'embed' => TRUE,
+  'leaflet' => TRUE,
 );
 
 // Mustache template loading.
