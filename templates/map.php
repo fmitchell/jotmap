@@ -87,6 +87,7 @@ if ($submissions = $jotformAPI->getFormSubmissions($choice, 0, 20)) {
                     'lat' => $latitude,
                     'id' => $id,
                     'form_id' => $form_id,
+                    'date' => date('m-d-y H:m:s'),
                 );
             } catch (Exception $e) {
                 echo $e->getMessage();
