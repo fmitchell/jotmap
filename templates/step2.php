@@ -12,7 +12,10 @@
 $key = preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET['jotformapi']);
 
 // Test the key.
-$jotformAPI = new JotForm($key);
+try {
+    $jotformAPI = new JotForm($key);
+} catch (Exception $e) {
+}
 
 // Check if any forms return.
 if ($forms = $jotformAPI->getForms()) {
