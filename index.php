@@ -12,7 +12,7 @@
 require 'vendor/autoload.php';
 
 $app = new \Slim\Slim(array(
-  'debug' => FALSE
+  'debug' => TRUE
 ));
 
 $app->error(function (\Exception $e) use ($app) {
