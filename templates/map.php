@@ -82,6 +82,7 @@ if ($submissions = $jotformAPI->getFormSubmissions($choice, 0, 20)) {
                 $latitude = $geocode->getLatitude();
 
                 // Save longitude, latitude, submission id, and form id.
+                date_default_timezone_set('US/Central');
                 $submission_geocodes[] = array(
                     'long' => $longitude,
                     'lat' => $latitude,
