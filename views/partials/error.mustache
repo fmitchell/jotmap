@@ -3,4 +3,7 @@
 {{# errormessage }}
 <p>Error: {{errormessage}}</p>
 {{/ errormessage }}
-<p>Maybe <a href="/">try again</a>?</p>
+<p>Maybe <a href="/">try again</a> or <a href="http://form.jotform.us/form/32635675114151">ask for help</a>?</p>
+<script>
+    mixpanel.track_pageview("/error.php");
+</script>

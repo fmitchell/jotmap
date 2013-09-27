@@ -14,6 +14,7 @@
 </form>
 
 <script>
+    mixpanel.track_pageview("/step2.php");
     mixpanel.identify('{{user}}');
     mixpanel.register({
         'api': '{{key}}'

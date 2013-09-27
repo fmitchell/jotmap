@@ -13,6 +13,7 @@
     </div>
 </form>
 <script>
+    mixpanel.track_pageview("/step1.php");
     mixpanel.track_forms("#step1form", "Step1 form submission");
     $("#jotmapstep1").click(function() {
         mixpanel.track("Step1 clicked");
