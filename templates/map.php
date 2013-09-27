@@ -134,7 +134,6 @@ if ($submissions = $jotformAPI->getFormSubmissions($choice, 0, 20)) {
 
 // Mustache hashes.
     $hash = array(
-      'title' => 'Foo Bar',
       'tabledata' => $addresses,
       'cloudmade_api_key' => $cloudmade_api_key,
       'markerdata' => $display_markers,

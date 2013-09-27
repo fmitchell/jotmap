@@ -1,6 +1,6 @@
 {{> pagetitle }}
 
-<form role="form" action="/map" method="get" class="form-horizontal">
+<form id="step3form" role="form" action="/map" method="get" class="form-horizontal">
     <h4>1. Which will be the pin's address?</h4>
     {{# list }}
         {{> list-data}}
@@ -17,3 +17,13 @@
         {{> button }}
     </div>
 </form>
+
+<script>
+    mixpanel.register({
+        'choice': '{{choice}}'
+    });
+    mixpanel.track_forms("#step3form", "Step3 form submission");
+    $("#stepbutton").click(function() {
+        mixpanel.track("Step button clicked");
+    });
+</script>

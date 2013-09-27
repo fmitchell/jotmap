@@ -1,6 +1,6 @@
 {{> pagetitle }}
 
-<form role="form" action="/step3" method="get" class="form-horizontal">
+<form id="step2form" role="form" action="/step3" method="get" class="form-horizontal">
     {{# list }}
         {{> list-data}}
     {{/ list }}
@@ -12,3 +12,14 @@
     </div>
 
 </form>
+
+<script>
+    mixpanel.identify('{{user}}');
+    mixpanel.register({
+        'api': '{{key}}'
+    });
+    mixpanel.track_forms("#step2form", "Step2 form submission");
+    $("#stepbutton").click(function() {
+        mixpanel.track("Step button clicked");
+    });
+</script>

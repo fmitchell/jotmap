@@ -1,6 +1,7 @@
 <script src='//js.jotform.com/JotForm.min.js'></script>
 <script>
     $("#jotformlogin").click(function(e) {
+        mixpanel.track("Authorize Jotmap clicked");
         JF.init({
             appName: "Jotmap",
             accessType: 'readOnly'

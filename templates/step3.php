@@ -44,9 +44,9 @@ if ($questions = $jotformAPI->getFormQuestions($choice)) {
         'choice' => $choice,
         'list' => $list,
         'pagetitle' => 'Pick the Fields',
-      'step' => 3,
-      'button' => 'Build Map',
-      'buttonjs' => TRUE,
+        'step' => 3,
+        'button' => 'Build Map',
+        'buttonjs' => TRUE,
     );
 } else {
     $hash = array(

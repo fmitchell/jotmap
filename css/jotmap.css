@@ -2,7 +2,7 @@
   height: 29.167em;
 }
 
-#jotmap-data-table {
+#jotmap-data-table, .container {
   margin-bottom: 75px;
 }
 

@@ -1,4 +1,7 @@
 <script>
     var url = location.href;
-    $("#embed").html("<textarea class=\"form-control\" rows=\"8\"><iframe src=\"" + url + "&embed=iframe\"></iframe></textarea>");
+    $("#embed").html("<textarea id=\"embedtextarea\" class=\"form-control\" rows=\"8\"><iframe src=\"" + url + "&embed=iframe\"></iframe></textarea>");
+    $("#embedtextarea").focus(function() {
+        mixpanel.track("Embed textarea focused");
+    });
 </script>

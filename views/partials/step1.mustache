@@ -4,11 +4,17 @@
 
 <h3>OR</h3>
 
-<form role="form" action="/step2" method="get">
+<form id="step1form" role="form" action="/step2" method="get">
     <div class="input-group">
         <input type="text" class="form-control input-lg" id="jotformAPIKey" placeholder="Enter API Key" name="jotformapi">
         <span class="input-group-btn">
-            <button type="submit" class="btn btn-success btn-lg">Next&nbsp;&rsaquo;&rsaquo;</button>
+            <button type="submit" id="jotmapstep1" class="btn btn-success btn-lg">Next&nbsp;&rsaquo;&rsaquo;</button>
         </span>
     </div>
 </form>
+<script>
+    mixpanel.track_forms("#step1form", "Step1 form submission");
+    $("#jotmapstep1").click(function() {
+        mixpanel.track("Step1 clicked");
+    });
+</script>
