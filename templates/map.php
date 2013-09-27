@@ -49,8 +49,16 @@ if ($submissions = $jotformAPI->getFormSubmissions($choice, 0, 20)) {
         // Setup variables.
         $id = $submission['id'];
         $form_id = $submission['form_id'];
-        $address = implode(', ', $submission['answers'][$jotaddress]['answer']);
-        $name = implode(' ', $submission['answers'][$jotlabel]['answer']);
+
+        $address_answer = $submission['answers'][$jotaddress]['answer'];
+        $label_answer = $submission['answers'][$jotlabel]['answer'];
+
+        $address = (is_array($address_answer))
+          ? implode(', ', $submission['answers'][$jotaddress]['answer'])
+          : $address_answer;
+        $name = (is_array($label_answer))
+          ? implode(' ', $submission['answers'][$jotlabel]['answer'])
+          : $label_answer;
 
         // Build Mongo query parameters.
         $query = array(
@@ -91,7 +99,7 @@ if ($submissions = $jotformAPI->getFormSubmissions($choice, 0, 20)) {
                     'date' => date('m-d-y H:m:s'),
                 );
             } catch (Exception $e) {
-                echo $e->getMessage();
+                $error_message = $e->getMessage();
             }
 
         } else {
@@ -100,7 +108,7 @@ if ($submissions = $jotformAPI->getFormSubmissions($choice, 0, 20)) {
         }
 
         // Check to see if geocode is 'center of world', i.e. could not find.
-        if (($latitude != '-3.37232') && ($longitude != '36.85787')) {
+        if (isset($latitude) && ($latitude != '-3.37232') && isset($longitude) && ($longitude != '36.85787')) {
             $display_markers[] = array(
                 'marker_id' => 'marker' . $id,
                 'lat' => $latitude,
@@ -145,11 +153,12 @@ if ($submissions = $jotformAPI->getFormSubmissions($choice, 0, 20)) {
       'choice' => $choice,
       'embed' => TRUE,
       'leaflet' => TRUE,
+      'errormessage' => isset($error_message) ? $error_message : NULL,
     );
 } else {
     $hash = array(
         'error' => TRUE,
-        'errormessage' => 'No addresses could be geo-coded.',
+        'errormessage' => isset($error_message) ? $error_message : 'No addresses could be geo-coded.',
     );
 }
 
