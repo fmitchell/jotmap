@@ -78,7 +78,7 @@ if ($submissions = $jotformAPI->getFormSubmissions($choice, 0, 20)) {
             $geocoder = new \Geocoder\Geocoder();
             $chain = new \Geocoder\Provider\ChainProvider(
                 array(
-                    new \Geocoder\Provider\CloudMadeProvider($adapter, $cloudmade_api_key),
+                    new \Geocoder\Provider\GoogleMapsProvider($adapter),
                 )
             );
             $geocoder->registerProvider($chain);
