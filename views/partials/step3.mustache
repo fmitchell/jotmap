@@ -19,7 +19,7 @@
 </form>
 
 <script>
-    mixpanel.track_pageview();
+    mixpanel.track('Step3 viewed', {'page name' : document.title, 'url' : window.location});
     mixpanel.register({
         'choice': '{{choice}}'
     });

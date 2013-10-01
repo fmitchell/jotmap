@@ -1,5 +1,4 @@
 <div id="map">{{errormessage}}</div>
 <script>
-    mixpanel.track_pageview();
-    mixpanel.track("Map viewed");
+    mixpanel.track('Map viewed', {'page name' : document.title, 'url' : window.location});
 </script>
