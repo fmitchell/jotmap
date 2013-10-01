@@ -14,7 +14,7 @@
 </form>
 
 <script>
-    mixpanel.track('Step2 viewed', {'page name' : document.title, 'url' : window.location});
+    mixpanel.track('Step2 viewed', {'page name' : document.title, 'url' : window.location.pathname});
     mixpanel.identify('{{user}}');
     mixpanel.register({
         'api': '{{key}}'

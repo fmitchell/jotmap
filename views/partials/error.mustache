@@ -5,6 +5,6 @@
 {{/ errormessage }}
 <p>Maybe <a href="/">try again</a> or <a href="http://form.jotform.us/form/32635675114151">ask for help</a>?</p>
 <script>
-    mixpanel.track('Error viewed', {'page name' : document.title, 'url' : window.location});
+    mixpanel.track('Error viewed', {'page name' : document.title, 'url' : window.location.pathname});
     mixpanel.track("Error encountered");
 </script>
